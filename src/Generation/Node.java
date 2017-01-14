@@ -11,18 +11,6 @@ public class Node {
     private int xPos;
     private int yPos;
 
-    //private Set<Node> adjacentNodes = new HashSet<>();
-
-//    public void addAdjacentNode(Node n){
-//
-//        adjacentNodes.add(n);
-//    }
-//
-//    public Set<Node> getAdjacentNodes(){
-//
-//        return new HashSet<>(adjacentNodes);
-//    }
-
     public String getName() {
         return name;
     }

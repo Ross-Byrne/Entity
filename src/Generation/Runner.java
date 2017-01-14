@@ -12,7 +12,6 @@ public class Runner {
     private static Character[][] world;
     private static Map<Node, Set<Node>> nodeAdjacencyList = new HashMap<>();    // adjacencyList
 
-
     public static void main(String[] args) {
 
         Random rand = new Random();
@@ -139,10 +138,10 @@ public class Runner {
     private static void connectNodes(){
 
         double distance;
-        //Map<Node, List<NodeConnection>> connectionCandidates = new HashMap<>();
+        Map<Node, NodeConnection[]> connectionCandidatesMap = new HashMap<>();
         List<NodeConnection> nodeConnectionList;
         NodeConnection con;
-        NodeConnection[] connectionCandidates = new NodeConnection[4];
+        NodeConnection[] connectionCandidates;
 
         // loop through each node
         for(Node n : nodeAdjacencyList.keySet()){
@@ -172,24 +171,47 @@ public class Runner {
                 } // if
             } // for
 
-            // loop through the node connections
+            // create array to hold top 4 connections
+            connectionCandidates = new NodeConnection[4];
+
+            // sort the collection
+            Collections.sort(nodeConnectionList, (a, b) -> a.getDistance() < b.getDistance() ? -1 : a.getDistance() == b.getDistance() ? 0 : 1);
+
+            int count = 0;
+
+            // loop through the sorted nodes, save first 4 (the closest nodes)
             for(NodeConnection nc : nodeConnectionList){
 
+                // save the node
+                connectionCandidates[count] = nc;
 
+                // increment counter
+                count++;
+
+                // if 4 are collected, break out of loop
+                if(count > 3){
+                    break;
+                } // if
 
             } // for
 
+            // save the top 4 nodes to connect
+            connectionCandidatesMap.put(n, connectionCandidates);
+
         } // for
 
-        // calculate the top 4 closes nodes
-        // save closes nodes to an array (or sorted list)
+        // decide which connections to keep
 
-        // start connecting nodes starting from nodes farthest away
+        // add connections to adjacency list
 
-        // make a potability of nodes connecting
+        for(Node n : connectionCandidatesMap.keySet()){
 
-        // connect the nodes
+            for (NodeConnection nc : connectionCandidatesMap.get(n)){
 
+                // get target node and add it to adjacency list for selected node
+                nodeAdjacencyList.get(nc.getSelectedNode()).add(nc.getTargetNode());
+            } // for
+        } // for
 
     } // connectNodes
 

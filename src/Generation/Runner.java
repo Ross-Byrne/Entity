@@ -74,6 +74,9 @@ public class Runner {
 
         } // for
 
+        // connect nodes together
+        connectNodes();
+
         // print out world
         for(int i = 0; i < height; i++){
 
@@ -133,12 +136,69 @@ public class Runner {
 
     } // checkAreaIsFree()
 
-    private static int calculateNodeDistance(int x1, int y1, int x2, int y2){
+    private static void connectNodes(){
 
-        int distance = 0;
+        double distance;
+        //Map<Node, List<NodeConnection>> connectionCandidates = new HashMap<>();
+        List<NodeConnection> nodeConnectionList;
+        NodeConnection con;
+        NodeConnection[] connectionCandidates = new NodeConnection[4];
+
+        // loop through each node
+        for(Node n : nodeAdjacencyList.keySet()){
+
+            // create object to store node and it's possible connections
+            nodeConnectionList = new ArrayList<>();
+
+            for(Node t: nodeAdjacencyList.keySet()){
+
+                // if not selected node
+                if(!n.equals(t)){
+
+                    // create object to hold distance
+                    con = new NodeConnection();
+                    con.setSelectedNode(n);
+                    con.setTargetNode(t);
+
+                    // calculate the distance between the two nodes
+                    distance = calculateNodeDistance(n.getxPos(), n.getyPos(), t.getxPos(), t.getyPos());
+
+                    // save distance
+                    con.setDistance(distance);
+
+                    // add to list
+                    nodeConnectionList.add(con);
+
+                } // if
+            } // for
+
+            // loop through the node connections
+            for(NodeConnection nc : nodeConnectionList){
+
+
+
+            } // for
+
+        } // for
+
+        // calculate the top 4 closes nodes
+        // save closes nodes to an array (or sorted list)
+
+        // start connecting nodes starting from nodes farthest away
+
+        // make a potability of nodes connecting
+
+        // connect the nodes
+
+
+    } // connectNodes
+
+    private static double calculateNodeDistance(int x1, int y1, int x2, int y2){
+
+        double distance = 0;
 
         // the distance between two points calculation
-        distance = (int)(Math.sqrt(Math.pow(Math.abs(x1 - x2), 2) + Math.pow(Math.abs(y1 - y2), 2)));
+        distance = (Math.sqrt(Math.pow(Math.abs(x1 - x2), 2) + Math.pow(Math.abs(y1 - y2), 2)));
 
         return distance;
 

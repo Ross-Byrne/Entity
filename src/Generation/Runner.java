@@ -16,11 +16,18 @@ public class Runner {
 
         Random rand = new Random();
 
-        int width = 52;
+        int width = 20;
         int height = 20;
         int minSpaceBetweenAreas = 2;
         float percentageUsed = 1f;
         world = new Character[height][width];
+
+        List<Point> points = new BresenhamsLineAlgorithm().calculatePoints(2,2,5,3);
+
+        for (Point p : points){
+
+            System.out.println("X: " + p.getX() + ". Y: " + p.getY());
+        }
 
         int roomsToGen = getNumberOfAreas(width, height, percentageUsed, minSpaceBetweenAreas);
 
@@ -81,7 +88,7 @@ public class Runner {
 
             for(int j = 0; j < width; j++){
 
-                System.out.print(world[i][j]);
+                System.out.print("  " + world[i][j]);
             } // for
 
             System.out.println();

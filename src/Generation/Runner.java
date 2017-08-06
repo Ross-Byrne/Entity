@@ -16,8 +16,8 @@ public class Runner {
 
         Random rand = new Random();
 
-        int width = 52;
-        int height = 20;
+        int width = 24;
+        int height = 24;
         int minSpaceBetweenAreas = 2;
         float percentageUsed = 1f;
         world = new Character[height][width];
@@ -77,20 +77,31 @@ public class Runner {
         connectNodes();
 
         // print out world
-        for(int i = 0; i < height; i++){
-
-            for(int j = 0; j < width; j++){
-
-                System.out.print(world[i][j]);
-            } // for
-
-            System.out.println();
-        } // for
+        printWorld();
 
         System.out.println("Rooms to generate: " + getNumberOfAreas(width, height, percentageUsed, minSpaceBetweenAreas));
         System.out.println("Nodes in adjacencyList: " + nodeAdjacencyList.size());
 
     } // main()
+
+    // prints out the world
+    public static void printWorld(){
+
+        String space = " ";
+
+        // print out world
+        for(int i = 0; i < world.length; i++){
+
+            for(int j = 0; j < world[i].length; j++){
+
+                System.out.print(space + world[i][j]);
+            } // for
+
+            System.out.print(space);
+            System.out.println();
+        } // for
+
+    } // printWorld()
 
     private static int getNumberOfAreas(int width, int height, float percent, int minSpaceBetweenAreas){
 

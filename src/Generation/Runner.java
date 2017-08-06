@@ -18,7 +18,7 @@ public class Runner {
 
         Random rand = new Random();
 
-        int width = 20;
+        int width = 32;
         int height = 20;
         int minSpaceBetweenAreas = 2;
         float percentageUsed = 1f;
@@ -90,8 +90,8 @@ public class Runner {
 
        Node c1 = cons.iterator().next();
 
-        System.out.println("N1: x: " + n1.getxPos() + " y: " + n1.getyPos());
-        System.out.println("C1: x: " + c1.getxPos() + " y: " + c1.getyPos());
+        System.out.println("N1: (" + n1.getxPos() + "," + n1.getyPos() + ")");
+        System.out.println("C1: (" + c1.getxPos() + "," + c1.getyPos() + ")");
 
         points = new BresenhamsLineAlgorithm().calculatePoints(n1.getxPos(), n1.getyPos(),
                 c1.getxPos(),c1.getyPos());
@@ -99,8 +99,34 @@ public class Runner {
         System.out.println("Number of points between Nodes: " + points.size());
         System.out.println("Distance between nodes: " + calculateNodeDistance(n1.getxPos(), n1.getyPos(), c1.getxPos(), c1.getyPos()));
 
+
+        for(Point p : points){
+
+            System.out.print(" -> ");
+            System.out.print("(" + p.getX() + "," + p.getY() + ")");
+        }
+        System.out.println();
+
+        // show calculated connection on map
+        for(Point p : points){
+
+            char wp = world[p.getY()][p.getX()];
+
+            if(wp == 'A'){
+
+                // don't over ride
+            }
+            else {
+
+                // mark connection
+                world[p.getY()][p.getX()] = '*';
+            }
+
+        } // for
+
         // print out world
         printWorld();
+
 
         System.out.println("Rooms to generate: " + getNumberOfAreas(width, height, percentageUsed, minSpaceBetweenAreas));
         System.out.println("Nodes in adjacencyList: " + nodeAdjacencyList.size());
@@ -112,8 +138,37 @@ public class Runner {
 
         String space = " ";
 
+        // print to number line for X axis
+
+        // print to second digit of the two digit number
+        System.out.print("\n    ");
+        for(int x = 0; x < world[0].length; x++){
+
+            if(x < 10)
+                System.out.print("  ");
+            else
+                System.out.print(x % 10 + " ");
+
+        } // for
+
+        // print the first digit of the two digit number
+        System.out.print("\n    ");
+        for(int x = 0; x < world[0].length; x++){
+
+            if(x < 10)
+                System.out.print(x + " ");
+            else
+                System.out.print(x / 10 + " ");
+
+        } // for
+
+        System.out.println();
         // print out world
         for(int i = 0; i < world.length; i++){
+
+            if(i < 10)
+                System.out.print(" ");
+            System.out.print(i + ".");
 
             for(int j = 0; j < world[i].length; j++){
 

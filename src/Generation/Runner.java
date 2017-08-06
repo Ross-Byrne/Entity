@@ -93,7 +93,7 @@ public class Runner {
         System.out.println("N1: (" + n1.getxPos() + "," + n1.getyPos() + ")");
         System.out.println("C1: (" + c1.getxPos() + "," + c1.getyPos() + ")");
 
-        points = new BresenhamsLineAlgorithm().calculatePoints(n1.getxPos(), n1.getyPos(),
+        points = new BresenhamsLineAlgorithm().calculatePointsUpdated(n1.getxPos(), n1.getyPos(),
                 c1.getxPos(),c1.getyPos());
 
         System.out.println("Number of points between Nodes: " + points.size());

@@ -11,7 +11,7 @@ public class Runner {
 
     // 2 dimensional array list
 
-    private static Character[][] world;
+    private static Node[][] world;
     private static Map<Node, Set<Node>> nodeAdjacencyList = new HashMap<>();    // adjacencyList
 
     public static void main(String[] args) {
@@ -22,7 +22,7 @@ public class Runner {
         int height = 20;
         int minSpaceBetweenAreas = 2;
         float percentageUsed = 1f;
-        world = new Character[height][width];
+        world = new Node[height][width];
 
         List<Point> points; // = new BresenhamsLineAlgorithm().calculatePoints(2,2,5,3);
 
@@ -38,7 +38,14 @@ public class Runner {
 
             for(int j = 0; j < width; j++){
 
-                world[i][j] = '-';
+                // create a new Node
+                Node n = new Node();
+                n.setId(0);
+                n.setyPos(i);
+                n.setxPos(j);
+
+                // add the node to the world
+                world[i][j] = n;
 
             } // for
         } // for
@@ -66,15 +73,10 @@ public class Runner {
                     isSpotFree = true;
 
                     // add room
-                    world[yPos][xPos] = 'A';
-
-                    // create the node and set its position
-                    n = new Node();
-                    n.setxPos(xPos);
-                    n.setyPos(yPos);
+                    world[yPos][xPos].setId(1);
 
                     // add node to adjacency list
-                    nodeAdjacencyList.put(n, new HashSet<>());
+                    nodeAdjacencyList.put(world[yPos][xPos], new HashSet<>());
 
                 } // if
 
@@ -110,16 +112,16 @@ public class Runner {
         // show calculated connection on map
         for(Point p : points){
 
-            char wp = world[p.getY()][p.getX()];
+            int id = world[p.getY()][p.getX()].getId();
 
-            if(wp == 'A'){
+            if(id == 1){ // if a room
 
                 // don't over ride
             }
             else {
 
-                // mark connection
-                world[p.getY()][p.getX()] = '*';
+                // mark as connection
+                world[p.getY()][p.getX()].setId(2);
             }
 
         } // for
@@ -166,13 +168,23 @@ public class Runner {
         // print out world
         for(int i = 0; i < world.length; i++){
 
+            // print out Y axis numbers
             if(i < 10)
                 System.out.print(" ");
             System.out.print(i + ".");
 
             for(int j = 0; j < world[i].length; j++){
 
-                System.out.print(space + world[i][j]);
+                switch(world[i][j].getId()){
+                    case 0: // empty space
+                        System.out.print(space + "-");
+                        break;
+                    case 1: // area
+                        System.out.print(space + "A");
+                        break;
+                    case 2: // connection
+                        System.out.print(space + "*");
+                } // switch
 
             } // for
             System.out.print(space);
@@ -214,7 +226,7 @@ public class Runner {
 
             for(int j = jMin; j <= jMax; j++){
 
-                if(world[i][j] != '-')
+                if(world[i][j].getId() != 0)
                     return false;
 
             } // for

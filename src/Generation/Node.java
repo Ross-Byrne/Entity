@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class Node {
 
-    private int id;
+    private int id;  // 0 = empty space, 1 = area, 2 = connection space
     private int xPos;
     private int yPos;
 
@@ -61,7 +61,7 @@ public class Node {
     }
 
     // calculate the distance between this node and Node n
-    public double getDistance(Node n){
+    public int getDistance(Node n){
 
         double x1 = this.xPos;
         double y1 = this.yPos;

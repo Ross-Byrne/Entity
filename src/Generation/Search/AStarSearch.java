@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * Created by Ross Byrne on 06/08/17.
  *
- * A* search. Guaranteed to find best, optimal path between two nodes in a graph.
+ * Implementation of the A* search. Guaranteed to find best, optimal path between two nodes in a graph.
  */
 public class AStarSearch {
 
@@ -46,7 +46,6 @@ public class AStarSearch {
             // if goal node is found
             if (node.equals(goal)){
 
-                System.out.println("Goal Found!");
                 // break out of loop, path to goal has been set
                 break;
             } // if

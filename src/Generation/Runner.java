@@ -25,12 +25,7 @@ public class Runner {
         float percentageUsed = 1f;
         world = new Node[height][width];
 
-        List<Point> points; // = new BresenhamsLineAlgorithm().calculatePoints(2,2,5,3);
-
-//        for (Point p : points){
-//
-//            //System.out.println("X: " + p.getX() + ". Y: " + p.getY());
-//        }
+        List<Point> points;
 
         int roomsToGen = getNumberOfAreas(width, height, percentageUsed, minSpaceBetweenAreas);
 
@@ -102,13 +97,6 @@ public class Runner {
         Node[] path = aStarSearch.getPath();
         System.out.println("Number of Connecting nodes: " + path.length);
 
-//        points = new BresenhamsLineAlgorithm().calculatePointsUpdated(n1.getxPos(), n1.getyPos(),
-//                c1.getxPos(),c1.getyPos());
-//
-//        System.out.println("Number of points between Nodes: " + points.size());
-//        System.out.println("Distance between nodes: " + calculateNodeDistance(n1.getxPos(), n1.getyPos(), c1.getxPos(), c1.getyPos()));
-//
-//
         for(Node n : path){
 
             System.out.print(" -> ");

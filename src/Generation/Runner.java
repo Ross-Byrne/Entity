@@ -1,5 +1,6 @@
 package Generation;
 
+import Generation.Search.AStarSearch;
 import com.sun.org.apache.xpath.internal.SourceTree;
 
 import java.util.*;
@@ -95,33 +96,37 @@ public class Runner {
         System.out.println("N1: (" + n1.getxPos() + "," + n1.getyPos() + ")");
         System.out.println("C1: (" + c1.getxPos() + "," + c1.getyPos() + ")");
 
-        points = new BresenhamsLineAlgorithm().calculatePointsUpdated(n1.getxPos(), n1.getyPos(),
-                c1.getxPos(),c1.getyPos());
+        // test A*
+        AStarSearch aStarSearch = new AStarSearch();
+        aStarSearch.traverse(world, n1, c1);
+        Node[] path = aStarSearch.getPath();
+        System.out.println("Number of Connecting nodes: " + path.length);
 
-        System.out.println("Number of points between Nodes: " + points.size());
-        System.out.println("Distance between nodes: " + calculateNodeDistance(n1.getxPos(), n1.getyPos(), c1.getxPos(), c1.getyPos()));
-
-
-        for(Point p : points){
+//        points = new BresenhamsLineAlgorithm().calculatePointsUpdated(n1.getxPos(), n1.getyPos(),
+//                c1.getxPos(),c1.getyPos());
+//
+//        System.out.println("Number of points between Nodes: " + points.size());
+//        System.out.println("Distance between nodes: " + calculateNodeDistance(n1.getxPos(), n1.getyPos(), c1.getxPos(), c1.getyPos()));
+//
+//
+        for(Node n : path){
 
             System.out.print(" -> ");
-            System.out.print("(" + p.getX() + "," + p.getY() + ")");
+            System.out.print("(" + n.getxPos() + "," + n.getyPos() + ")");
         }
         System.out.println();
 
         // show calculated connection on map
-        for(Point p : points){
+        for(Node n : path){
 
-            int id = world[p.getY()][p.getX()].getId();
-
-            if(id == 1){ // if a room
+            if(n.getId() == 1){ // if a room
 
                 // don't over ride
             }
             else {
 
                 // mark as connection
-                world[p.getY()][p.getX()].setId(2);
+                n.setId(2);
             }
 
         } // for

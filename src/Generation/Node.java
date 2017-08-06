@@ -10,6 +10,8 @@ public class Node {
     private int id;  // 0 = empty space, 1 = area, 2 = connection space
     private int xPos;
     private int yPos;
+    private Node parent; // used for a* search
+    private int pathCost; // used for a* search
 
     public int getId() {
         return id;
@@ -35,29 +37,45 @@ public class Node {
         this.yPos = yPos;
     }
 
+    public Node getParent() {
+        return parent;
+    }
+
+    public void setParent(Node parent) {
+        this.parent = parent;
+    }
+
+    public int getPathCost() {
+        return pathCost;
+    }
+
+    public void setPathCost(int pathCost) {
+        this.pathCost = pathCost;
+    }
+
     // get an array of nodes that are adjacent to this node in the world
     public Node[] adjacentNodes(Node[][] world){
 
-        java.util.List<Node> adjacents = new java.util.ArrayList<Node>();
+        List<Node> adjacents = new java.util.ArrayList<>();
 
         if (yPos > 0) {
-           // if(maze[xPos - 1][yPos].getId() != 0) // only add if not a hedge
+            //if(world[yPos - 1][xPos].getId() == 0) // only add if empty space
                 adjacents.add(world[yPos - 1][xPos]); //Add North
         }
         if (yPos < world.length - 1) {
-            //if(maze[yPos + 1][xPos].getId() != 0) // only add if not a hedge
+            //if(world[yPos + 1][xPos].getId() == 0) // only add if empty space
                 adjacents.add(world[yPos + 1][xPos]); //Add South
         }
         if (xPos > 0) {
-            //if(maze[yPos][xPos - 1].getId() != 0) // only add if not a hedge
+            //if(world[yPos][xPos - 1].getId() == 0) // only add if empty space
                 adjacents.add(world[yPos][xPos - 1]); //Add West
         }
         if (xPos < world[yPos].length - 1) {
-            //if(maze[yPos][xPos + 1].getId() != 0) // only add if not a hedge
+            //if(world[yPos][xPos + 1].getId() == 0) // only add if empty space
                 adjacents.add(world[yPos][xPos + 1]); //Add East
         }
 
-        return (Node[]) adjacents.toArray(new Node[adjacents.size()]);
+        return adjacents.toArray(new Node[adjacents.size()]);
     }
 
     // calculate the distance between this node and Node n

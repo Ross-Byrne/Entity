@@ -14,6 +14,25 @@ public class BresenhamsLineAlgorithm {
     
     public List<Point> calculatePoints(int x1, int y1, int x2, int y2){
 
+        // check if x1 > x2
+        if(x1 > x2){
+            int tx, ty;
+
+            // if so, swap them
+            tx = x1;
+            ty = y1;
+
+            // set x1/y1 to x2/y2
+            x1 = x2;
+            y1 = y2;
+
+            // set x2/y2 to x1/y1
+            x2 = tx;
+            y2 = ty;
+
+           // System.out.println("Swapped nodes");
+        } // if
+
         List<Point> points = new ArrayList<>();
 
         int dx  = x2 - x1;

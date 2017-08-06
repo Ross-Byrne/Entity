@@ -1,5 +1,7 @@
 package Generation;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
+
 import java.util.*;
 
 /**
@@ -22,12 +24,12 @@ public class Runner {
         float percentageUsed = 1f;
         world = new Character[height][width];
 
-        List<Point> points = new BresenhamsLineAlgorithm().calculatePoints(2,2,5,3);
+        List<Point> points; // = new BresenhamsLineAlgorithm().calculatePoints(2,2,5,3);
 
-        for (Point p : points){
-
-            System.out.println("X: " + p.getX() + ". Y: " + p.getY());
-        }
+//        for (Point p : points){
+//
+//            //System.out.println("X: " + p.getX() + ". Y: " + p.getY());
+//        }
 
         int roomsToGen = getNumberOfAreas(width, height, percentageUsed, minSpaceBetweenAreas);
 
@@ -83,21 +85,46 @@ public class Runner {
         // connect nodes together
         connectNodes();
 
+       Node n1 = nodeAdjacencyList.keySet().iterator().next();
+       Set<Node> cons = nodeAdjacencyList.get(n1);
+
+       Node c1 = cons.iterator().next();
+
+        System.out.println("N1: x: " + n1.getxPos() + " y: " + n1.getyPos());
+        System.out.println("C1: x: " + c1.getxPos() + " y: " + c1.getyPos());
+
+        points = new BresenhamsLineAlgorithm().calculatePoints(n1.getxPos(), n1.getyPos(),
+                c1.getxPos(),c1.getyPos());
+
+        System.out.println("Number of points between Nodes: " + points.size());
+        System.out.println("Distance between nodes: " + calculateNodeDistance(n1.getxPos(), n1.getyPos(), c1.getxPos(), c1.getyPos()));
+
         // print out world
-        for(int i = 0; i < height; i++){
-
-            for(int j = 0; j < width; j++){
-
-                System.out.print("  " + world[i][j]);
-            } // for
-
-            System.out.println();
-        } // for
+        printWorld();
 
         System.out.println("Rooms to generate: " + getNumberOfAreas(width, height, percentageUsed, minSpaceBetweenAreas));
         System.out.println("Nodes in adjacencyList: " + nodeAdjacencyList.size());
 
     } // main()
+
+    // prints out the world
+    public static void printWorld(){
+
+        String space = " ";
+
+        // print out world
+        for(int i = 0; i < world.length; i++){
+
+            for(int j = 0; j < world[i].length; j++){
+
+                System.out.print(space + world[i][j]);
+
+            } // for
+            System.out.print(space);
+            System.out.println();
+        } // for
+
+    } // printWorld()
 
     private static int getNumberOfAreas(int width, int height, float percent, int minSpaceBetweenAreas){
 

@@ -75,6 +75,7 @@ public class Node {
                 adjacents.add(world[yPos][xPos + 1]); //Add East
         }
 
+
         return adjacents.toArray(new Node[adjacents.size()]);
     }
 

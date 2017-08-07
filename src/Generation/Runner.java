@@ -18,6 +18,7 @@ public class Runner {
     public static void main(String[] args) {
 
         Random rand = new Random();
+        AStarSearch aStarSearch = new AStarSearch();
 
         int width = 32;
         int height = 20;
@@ -83,39 +84,42 @@ public class Runner {
         // connect nodes together
         connectNodes();
 
-       Node n1 = nodeAdjacencyList.keySet().iterator().next();
-       Set<Node> cons = nodeAdjacencyList.get(n1);
+        Node n1 = nodeAdjacencyList.keySet().iterator().next();
+        Set<Node> cons = nodeAdjacencyList.get(n1);
 
-       Node c1 = cons.iterator().next();
+       // Node c1 = cons.iterator().next();
 
-        System.out.println("N1: (" + n1.getxPos() + "," + n1.getyPos() + ")");
-        System.out.println("C1: (" + c1.getxPos() + "," + c1.getyPos() + ")");
+        for(Node c1 : cons) {
 
-        // test A*
-        AStarSearch aStarSearch = new AStarSearch();
-        aStarSearch.traverse(world, n1, c1);
-        Node[] path = aStarSearch.getPath();
-        System.out.println("Number of Connecting nodes: " + path.length);
+            System.out.println("N1: (" + n1.getxPos() + "," + n1.getyPos() + ")");
+            System.out.println("C1: (" + c1.getxPos() + "," + c1.getyPos() + ")");
 
-        for(Node n : path){
+            // test A*
 
-            System.out.print(" -> ");
-            System.out.print("(" + n.getxPos() + "," + n.getyPos() + ")");
-        }
-        System.out.println();
+            aStarSearch.traverse(world, n1, c1);
+            Node[] path = aStarSearch.getPath();
+            System.out.println("Number of Connecting nodes: " + path.length);
 
-        // show calculated connection on map
-        for(Node n : path){
+            for (Node n : path) {
 
-            if(n.getId() == 1){ // if a room
-
-                // don't over ride
+                System.out.print(" -> ");
+                System.out.print("(" + n.getxPos() + "," + n.getyPos() + ")");
             }
-            else {
+            System.out.println();
 
-                // mark as connection
-                n.setId(2);
-            }
+            // show calculated connection on map
+            for (Node n : path) {
+
+                if (n.getId() == 1) { // if a room
+
+                    // don't over ride
+                } else {
+
+                    // mark as connection
+                    n.setId(2);
+                }
+
+            } // for
 
         } // for
 
@@ -266,7 +270,7 @@ public class Runner {
             } // for
 
             // create array to hold top 4 connections
-            connectionCandidates = new NodeConnection[4];
+            connectionCandidates = new NodeConnection[2];
 
             // sort the collection
             Collections.sort(nodeConnectionList, (a, b) -> a.getDistance() < b.getDistance() ? -1 : a.getDistance() == b.getDistance() ? 0 : 1);
@@ -283,7 +287,7 @@ public class Runner {
                 count++;
 
                 // if 4 are collected, break out of loop
-                if(count > 3){
+                if(count > 1){
                     break;
                 } // if
 

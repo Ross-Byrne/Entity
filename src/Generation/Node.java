@@ -59,19 +59,19 @@ public class Node {
         List<Node> adjacents = new java.util.ArrayList<>();
 
         if (yPos > 0) {
-            //if(world[yPos - 1][xPos].getId() == 0) // only add if empty space
+            if(world[yPos - 1][xPos].getId() != 2) // only add if not connection
                 adjacents.add(world[yPos - 1][xPos]); //Add North
         }
         if (yPos < world.length - 1) {
-            //if(world[yPos + 1][xPos].getId() == 0) // only add if empty space
+            if(world[yPos + 1][xPos].getId() != 2) // only add if not connection
                 adjacents.add(world[yPos + 1][xPos]); //Add South
         }
         if (xPos > 0) {
-            //if(world[yPos][xPos - 1].getId() == 0) // only add if empty space
+            if(world[yPos][xPos - 1].getId() != 2) // only add if not connection
                 adjacents.add(world[yPos][xPos - 1]); //Add West
         }
         if (xPos < world[yPos].length - 1) {
-            //if(world[yPos][xPos + 1].getId() == 0) // only add if empty space
+            if(world[yPos][xPos + 1].getId() != 2) // only add if not connection
                 adjacents.add(world[yPos][xPos + 1]); //Add East
         }
 
